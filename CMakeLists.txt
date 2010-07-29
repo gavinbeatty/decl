@@ -24,10 +24,16 @@ set(${pn}_builddir "${CMAKE_CURRENT_BINARY_DIR}")
 string(TOUPPER "${pn}" PN)
 
 macro_option(${PN}_USE_SYSTEM_PLAT "Use the system's version of plat." ON)
+macro_option(${PN}_PLAT_DIR "The directory containing the local plat." "deps/plat")
+macro_option(${PN}_PLAT_BUILD "Should we build the local plat or use already built version." ON)
+set(${pn}_plat_build "NOBUILD")
+if(${PN}_PLAT_BUILD)
+    set(${pn}_plat_build "BUILD")
+endif(${PN}_PLAT_BUILD)
 
 set(${pn}_plat_expr ">=")
 set(${pn}_plat_ver "1.5")
-macro_system_or_local_dep(plat NOLIB "deps/plat" BUILD "${${pn}_plat_ver}")
+macro_system_or_local_dep(plat NOLIB "${${PN}_PLAT_DIR}" "${${pn}_plat_build}" "${${pn}_plat_ver}")
 set(${pn}_pkgconfig_deps "plat ${${pn}_plat_expr} ${${pn}_plat_ver}")
 
 macro_set_default_install_dirs()
