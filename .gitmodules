@@ -1,0 +1,3 @@
+[submodule "deps/plat"]
+	path = deps/plat
+	url = http://github.com/gavinbeatty/plat.git

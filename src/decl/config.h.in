@@ -1,0 +1,19 @@
+#ifndef DECL_CONFIG_H
+#define DECL_CONFIG_H
+
+#include <decl/c.h>
+DECL_BEGIN_C
+#include <plat/cc.h>
+#include <plat/os.h>
+
+#define DECL_VERSION_MAJOR      @decl_VERSION_MAJOR@
+#define DECL_VERSION_MINOR      @decl_VERSION_MINOR@
+#define DECL_VERSION_PATCH      @decl_VERSION_PATCH@
+#define DECL_VERSION_STR        "@decl_VERSION_STR@"
+#define DECL_HOMEPAGE_STR       "@decl_HOMEPAGE_STR@"
+#define DECL_BUILD_TYPE_STR     "@CMAKE_BUILD_TYPE@"
+#define DECL_CONTACT_STR        "@decl_CONTACT_STR@"
+
+DECL_END_C
+#endif /* DECL_CONFIG_H */
+
