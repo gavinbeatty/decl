@@ -1,31 +1,34 @@
-
 project(decl C)
 cmake_minimum_required(VERSION 2.6)
 if(POLICY CMP0011)
     cmake_policy(SET CMP0011 NEW)
 endif(POLICY CMP0011)
+if(POLICY CMP0012)
+    cmake_policy(SET CMP0012 NEW)
+endif(POLICY CMP0012)
 
 set(CMAKE_MODULE_PATH
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmakefiles"
+    "${CMAKE_CURRENT_SOURCE_DIR}/deps/plat"
     ${CMAKE_MODULE_PATH})
-include(MacroInstallPrefix)
-include(MacroLogVar)
-include(MacroDeleteInstalled)
-include(MacroSetDefaultInstallDirs)
-include(MacroSetBuildType)
-include(MacroSystemOrLocalDep)
-include(MacroOption)
+include(CmfInstallPrefix)
+include(CmfLogVar)
+include(CmfDeleteInstalled)
+include(CmfSetDefaultInstallDirs)
+include(CmfSetBuildType)
+include(CmfSystemOrLocalDep)
+include(CmfOption)
 
-macro_set_build_type()
+cmf_set_build_type()
 
 set(pn "${PROJECT_NAME}")
 set(${pn}_srcdir "${CMAKE_CURRENT_SOURCE_DIR}")
 set(${pn}_builddir "${CMAKE_CURRENT_BINARY_DIR}")
 string(TOUPPER "${pn}" PN)
 
-macro_option(${PN}_USE_SYSTEM_PLAT "Use the system's version of plat." ON)
-macro_option(${PN}_PLAT_DIR "The directory containing the local plat." "deps/plat")
-macro_option(${PN}_PLAT_BUILD "Should we build the local plat or use already built version." ON)
+cmf_option(${PN}_USE_SYSTEM_PLAT "Use the system's version of plat." ON)
+cmf_option(${PN}_PLAT_DIR "The directory containing the local plat." "deps/plat")
+cmf_option(${PN}_PLAT_BUILD "Should we build the local plat or use already built version." ON)
 set(${pn}_plat_build "NOBUILD")
 if(${PN}_PLAT_BUILD)
     set(${pn}_plat_build "BUILD")
@@ -33,13 +36,13 @@ endif(${PN}_PLAT_BUILD)
 
 set(${pn}_plat_expr ">=")
 set(${pn}_plat_ver "1.5")
-macro_system_or_local_dep(plat NOLIB "${${PN}_PLAT_DIR}" "${${pn}_plat_build}" "${${pn}_plat_ver}")
+cmf_system_or_local_dep(plat NOLIB "${${PN}_PLAT_DIR}" "${${pn}_plat_build}" "${${pn}_plat_ver}")
 set(${pn}_pkgconfig_deps "plat ${${pn}_plat_expr} ${${pn}_plat_ver}")
 
-macro_set_default_install_dirs()
+cmf_set_default_install_dirs()
 
-macro_install_prefix(${pn}_prefix)
-macro_log_var(${pn}_prefix)
+cmf_install_prefix(${pn}_prefix)
+cmf_log_var(${pn}_prefix)
 
 set(${pn}_VERSION_MAJOR 1)
 set(${pn}_VERSION_MINOR 4)
@@ -80,8 +83,8 @@ string(TOUPPER "${name}" NAME)
 string(REGEX REPLACE "." " " empty "${name}")
 set(no_libs TRUE)
 set(config_header "config.h")
-file(READ "cmake/MacroVersionCmp.cmake" macro_version_str)
-macro_log_var("${pn}_plat_ver")
+file(READ "cmake/cmakefiles/CmfVersionCmp.cmake" macro_version_str)
+cmf_log_var("${pn}_plat_ver")
 set(deps_code "
 m_req_dep(\"\${_p}\" plat NOTEXACT \"${${pn}_plat_ver}\" \"\${_p}_plat_found\")
 ")
@@ -108,7 +111,7 @@ install(FILES           ${${pn}_HDRS}
 install(FILES           ${${pn}_CC_HDRS}
         DESTINATION     "${${pn}_projincludedir}/cc"
 )
-macro_delete_installed("${${pn}_cmakeexportdir}/Export${pn}-*.cmake")
+cmf_delete_installed("${${pn}_cmakeexportdir}/Export${pn}-*.cmake")
 install(FILES           "${${pn}_builddir}/Export${pn}.cmake"
         DESTINATION     "${${pn}_cmakeexportdir}"
 )

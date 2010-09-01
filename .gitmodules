@@ -1,3 +1,6 @@
 [submodule "deps/plat"]
 	path = deps/plat
 	url = http://github.com/gavinbeatty/plat.git
+[submodule "cmake/cmakefiles"]
+	path = cmake/cmakefiles
+	url = http://github.com/gavinbeatty/cmakefiles.git
