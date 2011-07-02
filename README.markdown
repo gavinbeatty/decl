@@ -6,24 +6,17 @@ decl: Compiler declarations (such as declspec for MSVC) for C/C++.
 
 License
 -------
-Copyright (c) 2010 Gavin Beatty <gavinbeatty@gmail.com>.
-All rights reserved.
-
-New BSD License. Found in LICENSE.txt.
+Copyright and license information can be found in the included LICENSE.txt.
 
 Install
 -------
-Configure:
-    mkdir build
-    cd build
-    cmake ../
+To configure, just run `make configure`
 
-Select your own prefix:
-    cmake -DCMAKE_INSTALL_PREFIX=~/.local/usr ../
+This is a header only library, so there is nothing to build.
 
-Build:
-    make
+The default prefix is `/usr/local`. Examples for installing:
 
-Default prefix is `/usr/local`:
-    sudo make install
+* `sudo make install`
+* `make install PREFIX="$HOME"/.local/usr`
+* `fakeroot make install PREFIX=/usr DESTROOT=./decl-bin`
 
