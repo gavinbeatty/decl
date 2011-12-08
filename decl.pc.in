@@ -1,16 +1,10 @@
-# pkg-config file generated for @PROJECT_NAME@.
-
+# pkg-config file generated for decl.
 prefix=@PREFIX@
-exec_prefix=${prefix}
-libdir=${exec_prefix}/@libdir@
-includedir=${prefix}/@includedir@
+includedir=${prefix}/include
 
-Name: @PROJECT_NAME@
-Description: @DESCRIPTION@
-Version: @VERSION@
+Name: decl
+Description: Compiler declarations (such as declspec for MSVC) for C/C++.
+Version: @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
 Requires: plat
-URL: @HOMEPAGE@
-#Libs: -L${libdir} -l@PROJECT_NAME@
-#Libs.private:
+URL: http://github.com/gavinbeatty/decl
 Cflags: -I${includedir}
-

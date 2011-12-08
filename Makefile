@@ -5,14 +5,10 @@ SHELL = /bin/sh
 help:
 	@echo "Targets: help all configure confclean install"
 
-PROJECT_NAME = decl
-HOMEPAGE = http://github.com/gavinbeatty/decl
-DESCRIPTION = Compiler declarations (such as declspec for MSVC) for C/C++.
 PREFIX = /usr/local
-VERSION_MAJOR := 1
-VERSION_MINOR := 5
-VERSION_PATCH := 0
-VERSION := $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
+VERSION_MAJOR = 1
+VERSION_MINOR = 5
+VERSION_PATCH = 0
 
 SED ?= sed
 RM ?= rm
@@ -26,10 +22,9 @@ all: configure
 
 decl.pc: decl.pc.in
 	$(gen_p)$(SED) \
-		-e 's#@PROJECT_NAME@#$(PROJECT_NAME)#g' \
-		-e 's#@VERSION@#$(VERSION)#g' \
-		-e 's#@DESCRIPTION@#$(DESCRIPTION)#g' \
-		-e 's#@HOMEPAGE@#$(HOMEPAGE)#g' \
+		-e 's#@VERSION_MAJOR@#$(VERSION_MAJOR)#g' \
+		-e 's#@VERSION_MINOR@#$(VERSION_MINOR)#g' \
+		-e 's#@VERSION_PATCH@#$(VERSION_PATCH)#g' \
 		-e 's#@PREFIX@#$(PREFIX)#g' \
 		decl.pc.in > decl.pc
 
@@ -38,7 +33,6 @@ src/decl/config.h: src/decl/config.h.in
 		-e 's#@VERSION_MAJOR@#$(VERSION_MAJOR)#g' \
 		-e 's#@VERSION_MINOR@#$(VERSION_MINOR)#g' \
 		-e 's#@VERSION_PATCH@#$(VERSION_PATCH)#g' \
-		-e 's#@VERSION@#$(VERSION)#g' \
 		src/decl/config.h.in > src/decl/config.h
 configure: src/decl/config.h decl.pc
 config: configure
